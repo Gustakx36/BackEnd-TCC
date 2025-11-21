@@ -278,33 +278,33 @@ def fila_trechos():
     return jsonify({'status': recebendo_arquivos}), 200
 
 
+# @app.route('/video_low/<id_solicitation>/<filename>', methods=['GET'])
+# def get_video(id_solicitation, filename):
+#     """Serve vídeo original de um trecho."""
+#     path = os.path.join("Trechos", id_solicitation, filename)
+#     if not os.path.exists(path):
+#         return "Arquivo não encontrado", 404
+
+#     command = [
+#         "ffmpeg", "-i", path,
+#         "-c:v", "libx264", "-preset", "medium",
+#         "-crf", "25",
+#         "-vf", "scale='min(854,iw)':-2",    # no máx 480p
+#         "-c:a", "aac", "-b:a", "64k",
+#         "-movflags", "frag_keyframe+empty_moov",
+#         "-f", "mp4", "pipe:1"
+#     ]
+
+#     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+
+#     return Response(
+#         stream_with_context(process.stdout),
+#         mimetype="video/mp4",
+#         direct_passthrough=True
+#     )
+
+
 @app.route('/video/<id_solicitation>/<filename>', methods=['GET'])
-def get_video(id_solicitation, filename):
-    """Serve vídeo original de um trecho."""
-    path = os.path.join("Trechos", id_solicitation, filename)
-    if not os.path.exists(path):
-        return "Arquivo não encontrado", 404
-
-    command = [
-        "ffmpeg", "-i", path,
-        "-c:v", "libx264", "-preset", "medium",
-        "-crf", "25",
-        "-vf", "scale='min(854,iw)':-2",    # no máx 480p
-        "-c:a", "aac", "-b:a", "64k",
-        "-movflags", "frag_keyframe+empty_moov",
-        "-f", "mp4", "pipe:1"
-    ]
-
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-
-    return Response(
-        stream_with_context(process.stdout),
-        mimetype="video/mp4",
-        direct_passthrough=True
-    )
-
-
-@app.route('/video_low/<id_solicitation>/<filename>', methods=['GET'])
 def get_video_low(id_solicitation, filename):
     """Serve um vídeo existente direto da pasta"""
     dir_path = os.path.join(app_dir, "Trechos", id_solicitation)
