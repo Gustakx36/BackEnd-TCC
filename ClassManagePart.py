@@ -48,11 +48,11 @@ class ClassManagePart:
                 ]
             else:
                 index_scene += 1
-                return
+                return index_scene
             
             if not palavras_encontradas:
                 index_scene += 1
-                return
+                return index_scene
 
             primeira = palavras_encontradas[0]  # Primeira ocorrência da palavra
             ultima = palavras_encontradas[-1]   # Última ocorrência da palavra
